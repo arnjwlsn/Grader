@@ -4,7 +4,6 @@
 #include <string>
 #include <sstream>
 
-const double FINAL_MAX_POINTS = 2.5;
 const int PRECISION = 3;
 
 double my_round(double value, int decimal_places) {
@@ -22,16 +21,19 @@ void parseInput(std::string input, std::vector<double> &vec) {
 }
 
 int main() {
-   double total = 0;
+   double original_scale = 0, target_scale = 0;
    std::vector<double> vec;
    std::string input = "";
 
-   std::cout << "Total points possible: ";
-   std::cin >> total;
+   std::cout << "Original grade point scale: ";
+   std::cin >> original_scale;
+   std::cout << "Target grade point scale: ";
+   std::cin >> target_scale;
    std::cin.ignore();
 
-   if(total != 0) {
+   if(original_scale != 0 && target_scale != 0) {
       while(std::cin) {
+         std::cout << "----------------------" << std::endl;
          std::cout << "Student score: ";
          std::getline(std::cin, input);
          parseInput(input, vec);
@@ -41,7 +43,7 @@ int main() {
                std::cout << "Offset: " << vec[1] << "%" << std::endl;
             }
 
-            std::cout << "Grade: " << my_round(((vec[0]/total)+(vec[1]/100))*FINAL_MAX_POINTS, PRECISION) << std::endl;
+            std::cout << "Grade: " << my_round(((vec[0]/original_scale)+(vec[1]/100))*target_scale, PRECISION) << std::endl;
          }
 
          // Reinitialize variables
